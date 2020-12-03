@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify from 'aws-amplify';
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -24,7 +25,8 @@ let awsconfig = {
         oauth: {
             domain:"http://newtechcorpauth-dev.auth.us-east-1.amazoncognito.com/",
             scope: ['email', 'openid'],
-            redirectSignIn: "https://master.d36s98jndilz0p.amplifyapp.com/",
+            //redirectSignIn: "https://master.d36s98jndilz0p.amplifyapp.com/",
+            redirectSignIn: "https://newtechcorpauth-dev.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=79gsrp64vm7vrdh6bk0j8fl20j&redirect_uri=http://localhost:3000/",
             redirectSignOut: "https://master.d36s98jndilz0p.amplifyapp.com/",
             responseType: "code"
         }
@@ -35,8 +37,8 @@ let awsconfig = {
       aws_appsync_authenticationType:"AMAZON_COGNITO_USER_POOLS"
 }
 if (isLocalhost) {
-  awsconfig.Auth.oauth.redirectSignIn = 'http://localhost:3001/';
-  awsconfig.Auth.oauth.redirectSignOut = 'http://localhost:3001/';
+  awsconfig.Auth.oauth.redirectSignIn = 'http://localhost:3000/';
+  awsconfig.Auth.oauth.redirectSignOut = 'http://localhost:3000/';
 }
 
 Amplify.configure(awsconfig);
