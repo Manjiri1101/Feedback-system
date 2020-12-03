@@ -8,8 +8,10 @@ export const getFeedback = /* GraphQL */ `
       sender
       recipient
       feedback
+      name
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -25,8 +27,10 @@ export const listFeedbacks = /* GraphQL */ `
         sender
         recipient
         feedback
+        name
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }

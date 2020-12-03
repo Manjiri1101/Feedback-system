@@ -11,8 +11,10 @@ export const createFeedback = /* GraphQL */ `
       sender
       recipient
       feedback
+      name
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -26,8 +28,10 @@ export const updateFeedback = /* GraphQL */ `
       sender
       recipient
       feedback
+      name
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -41,8 +45,10 @@ export const deleteFeedback = /* GraphQL */ `
       sender
       recipient
       feedback
+      name
       createdAt
       updatedAt
+      owner
     }
   }
 `;

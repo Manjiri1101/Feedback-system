@@ -20,12 +20,11 @@
           "nativeClientId": "6n82dgqc1rgrp8eud1iqgk0cif",
           "identityPoolId": "us-east-1:a130f516-f9b7-4d0b-82dd-25e248b49511",
           "identityPoolName": "newtechcorp31bf03e1_identitypool_31bf03e1__dev",
-          "allowUnauthenticatedIdentities": false,
+          "allowUnauthenticatedIdentities": true,
           "authRoleArn": "arn:aws:iam::328229711407:role/amplify-newtechcorp-dev-225559-authRole",
           "authRoleName": "amplify-newtechcorp-dev-225559-authRole",
           "unauthRoleArn": "arn:aws:iam::328229711407:role/amplify-newtechcorp-dev-225559-unauthRole",
-          "unauthRoleName": "amplify-newtechcorp-dev-225559-unauthRole",
-          "hostedUIProviderCreds": "[{\"ProviderName\":\"oktaopenid\",\"client_id\":\"0oa192fjq9AGvvBvK5d6\",\"client_secret\":\"v3_po-elfd7gU6Br9qZQ5gqRgkMHZIhesjpY2ggz\"}]"
+          "unauthRoleName": "amplify-newtechcorp-dev-225559-unauthRole"
         }
       }
     }
