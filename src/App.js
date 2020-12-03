@@ -13,14 +13,14 @@ function App() {
   }
 
   return (
-    <div >
-      <header >
-      </header>
-      Welcome to feedback portal !
-      <button  onClick={handleClick} >Log Out</button>
-      <Compose />
-      <Display />
-    </div>
+      <div className="background">
+          <header>
+          </header>
+          Welcome to feedback portal !
+          <button  onClick={handleClick} >Log Out</button>
+          <Compose />
+          <Display />
+      </div>
   );
 }
 
