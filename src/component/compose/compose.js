@@ -13,8 +13,7 @@ function Compose() {
 
     const [feedbacks, setFeedbacks] = useState([]);
     const [receivedFeedbacks, setReceivedFeedbacks] = useState([]);
-    const [sentFeedbacks, setSentFeedbacks] = useState([]);
-    //const [budget, setBudgets] = useState([]);
+    const [sentFeedbacks, setSentFeedbacks] = useState([]); 
     const [formData, setFormData] = useState(initialFormState);
     const [senderEmail, setSenderEmail] = useState('');
     const [show, setShow] = useState(false);
@@ -127,30 +126,8 @@ function Compose() {
                             <Tab.Pane eventKey="first">
                                 <h1>INBOX <GrChat/></h1>
                                 <Container>
-                                <div  style={{ marginBottom: 30 }}>
-                                                {
-                                                    sentFeedbacks.map(feedback => (
-                                                        <div className="paper" key={feedback.id || feedback.recipient}>
-                                                            <div >   
-                                                                    <p><b>Sender</b>: {feedback.sender}</p>                  
-                                                                    <p><b>Feedback</b>: {feedback.feedback}</p>
-                                                                    <p><b>Sent Time</b>: {feedback.createdAt}</p>
-                                                                                               
-                                                            </div>
-                                                        </div>
-                                                    ))
-                                                }
-                                                
-                                            </div>
-                                </Container>
-                            </Tab.Pane>
-                            <Tab.Pane eventKey="second">
-                                <div>
-                                    <div >
-                                        <h1>Sent Feedbacks</h1>
-                                        <Container>
-                                         
-                                            <div >
+                              
+                                <div >
                                         <div className="col container" style={{ marginBottom: 30 }}>
                                             {
                                                 receivedFeedbacks.map(feedback => (
@@ -159,7 +136,7 @@ function Compose() {
                                                         <p><b>Feedback  </b> :&nbsp; {feedback.feedback}</p>
                                                         <p><b>Sender  </b> :&nbsp; {feedback.sender}</p>
                                                         <p><b>Recieved time  </b> :&nbsp;  {feedback.createdAt}</p>
-                                                        <Button variant="primary" onClick={() => deleteFeedback(feedback)}><GrTrash/></Button> 
+                                                         
                                                         
                                                     </div>
                                                 ))
@@ -168,6 +145,28 @@ function Compose() {
                                         </div>
                                         <br />
                                     </div>
+                                </Container>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="second">
+                                <div>
+                                    <div >
+                                        <h1>Sent Feedbacks</h1>
+                                        <Container>
+                                        <div  style={{ marginBottom: 30 }}>
+                                                {
+                                                    sentFeedbacks.map(feedback => (
+                                                        <div className="paper" key={feedback.id || feedback.recipient}>
+                                                            <div >   
+                                                                    <p><b>Sent To</b>: {feedback.recipient}</p>                  
+                                                                    <p><b>Feedback</b>: {feedback.feedback}</p>
+                                                                    <p><b>Sent Time</b>: {feedback.createdAt}</p>
+                                                                    <Button variant="primary" onClick={() => deleteFeedback(feedback)}><GrTrash/></Button>                          
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                }
+                                                
+                                            </div>
                                             </Container>
                                     </div>
                                 </div>
@@ -177,7 +176,6 @@ function Compose() {
                 </Row>
             </Tab.Container>
             <>
-
             </>
         </div>
     );
