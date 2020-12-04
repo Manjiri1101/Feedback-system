@@ -4,8 +4,8 @@
     border-color: rgba(175, 171, 171, 0.336);
     border-radius: 0.01cm;
     background-color:rgb(252, 252, 252);
-    padding: 1cm;
-    margin-top: 1cm;
+    padding: 0.25cm;
+    margin-top: 0.25cm;
     margin-bottom: 0.25cm;
     text-align: center;
 }
@@ -26,5 +26,18 @@
     transition: all 0.3s;
 }
 .lol{
-    background: #6c757d;
+    background: #ffffff;
+}
+
+.btn-primary {
+    border-radius: 0px;
+    transition: background-color 1s color 1s;
+}
+.btn-primary:hover {
+    color: #007bff;
+    background-color: white;
+}
+
+.container{
+
 }

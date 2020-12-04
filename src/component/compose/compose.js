@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 import { API } from 'aws-amplify';
-import { Modal, Container, Row, Card, Alert, Col, Collapse, Form, Navbar, Nav,Tab } from 'react-bootstrap';
+import { Modal, Container, Row, Card, Alert, Col, Collapse, Form, Navbar, Nav, Tab } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import './compose.css';
 import { listFeedbacks } from '../../graphql/queries';
+import { GrChat,GrEdit, GrTrash } from "react-icons/gr";
 import { createFeedback as createFeedbackMutation, updateFeedback as updateFeedbackMutation, deleteFeedback as deleteFeedbackMutation } from '../../graphql/mutations';
-import { withRouter } from "react-router";
 const initialFormState = { recipient: '', feedback: '', sender: '' }
 
 function Compose() {
-    
+
     const [feedbacks, setFeedbacks] = useState([]);
     const [receivedFeedbacks, setReceivedFeedbacks] = useState([]);
     const [sentFeedbacks, setSentFeedbacks] = useState([]);
@@ -75,10 +75,10 @@ function Compose() {
     }
     return (
         <div>
-            
             <>
                 <Button variant="primary" onClick={handleShow}>
-                    Compose Feedback
+               
+                    Compose &nbsp;
                 </Button>
                 <Modal show={show} onHide={handleClose} animation={false}>
                     <Modal.Header closeButton>
@@ -87,19 +87,19 @@ function Compose() {
                     <Modal.Body>
                         <Form>
                             <Form.Group>
-                            <Form.Label>Write recipient firstname.lastname (eg john.smith )</Form.Label>
-                            <Form.Control size="lg" type="email"
-                            onChange={e => setFormData({ ...formData, 'recipient': e.target.value })}
-                            placeholder="Recipient email"
-                            value={formData.recipient}
-                        />@techcorp.com
-                         <br />
-                         <Form.Control as="textarea" rows={3} 
-                            onChange={e => setFormData({ ...formData, 'feedback': e.target.value })}
-                            placeholder="Write feedback"
-                            value={formData.feedback}
-                        />
-                        </Form.Group>
+                                <Form.Label>Write recipient firstname.lastname (eg john.smith )</Form.Label>
+                                <Form.Control size="lg" type="email"
+                                    onChange={e => setFormData({ ...formData, 'recipient': e.target.value })}
+                                    placeholder="Recipient email"
+                                    value={formData.recipient}
+                                />   @techcorp.com
+                                 <br />
+                                <Form.Control as="textarea" rows={3}
+                                    onChange={e => setFormData({ ...formData, 'feedback': e.target.value })}
+                                    placeholder="Write feedback"
+                                    value={formData.feedback}
+                                />
+                            </Form.Group>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
@@ -112,75 +112,75 @@ function Compose() {
             </>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                 <Row>
-            <Col sm={2}>
-            <Nav variant="pills" className="flex-column ">
-            <Nav.Item>
-          <Nav.Link eventKey="first">Inbox</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="second">Sent BOx</Nav.Link>
-        </Nav.Item>
-        
-            </Nav>
-            </Col>
-            
-            <Col sm={10}>
-            <Tab.Content>
-            <Tab.Pane eventKey="first">
-            <h1>INBOX</h1>
-            <Container>
-                <div className="paper">
-                    <div className="col" style={{ marginBottom: 30 }}>
-                        {
-                            receivedFeedbacks.map(feedback => (
-                                <div key={feedback.id || feedback.recipient}>
-                                    <p>{feedback.recipient}</p>
-                                    <p>Feedback: {feedback.feedback}</p>
-                                    <p>Sender:{feedback.sender}</p>
-                            <p>Recieved time : {feedback.createdAt}</p>
-                                    <Button variant="primary" onClick={() => deleteFeedback(feedback)}>Delete feedback</Button>
-                                </div>
-                            ))
-                        }
-                        <br />
-                    </div>
-                    <br />
-                </div>
-            </Container>
-            </Tab.Pane>
-            <Tab.Pane eventKey="second">
-            <div>
-               
-                
-                    <div >
-                        <h1>SENT FEEDBACKS</h1>
-                        <Container>
-                        <div className="col paper" style={{ marginBottom: 30 }}>
-                            {
-                                sentFeedbacks.map(feedback => (
-                                    <div key={feedback.id || feedback.recipient}>
-                                        <p>{feedback.recipient}</p>
-                                        <p>Feedback: {feedback.feedback}</p>
-                                        <p>Sender:{feedback.sender}</p>
-                                        <p>Sent Time: {feedback.createdAt}</p>
+                    <Col sm={1}>
+                        <Nav variant="pills" className="flex-column ">
+                            <Nav.Item>
+                                <Nav.Link eventKey="first" >Inbox</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="second" >Sent Box</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                    </Col>
+                    <Col sm={11}>
+                        <Tab.Content>
+                            <Tab.Pane eventKey="first">
+                                <h1>INBOX <GrChat/></h1>
+                                <Container>
+                                    <div >
+                                        <div className="col container" style={{ marginBottom: 30 }}>
+                                            {
+                                                receivedFeedbacks.map(feedback => (
+                                                    <div  className="paper" key={feedback.id || feedback.recipient}>
+                                                        <p><b>Recipent </b> :&nbsp; {feedback.recipient}</p>
+                                                        <p><b>Feedback  </b> :&nbsp; {feedback.feedback}</p>
+                                                        <p><b>Sender  </b> :&nbsp; {feedback.sender}</p>
+                                                        <p><b>Recieved time  </b> :&nbsp;  {feedback.createdAt}</p>
+                                                        
+                                                    </div>
+                                                ))
+                                            }
+                                            <br />
+                                        </div>
+                                        <br />
                                     </div>
-                                ))
-                            }
-                            <br />
-                        </div>
-                        </Container>
-                    </div>
-                    
-            </div>
-            
-            </Tab.Pane>
-            </Tab.Content>
-            </Col>
-            </Row>
+                                </Container>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="second">
+                                <div>
+                                    <div >
+                                        <h1>Recieved Feedbacks</h1>
+                                        <Container>
+                                            <div  style={{ marginBottom: 30 }}>
+                                                {
+                                                    sentFeedbacks.map(feedback => (
+                                                        <div className="paper" key={feedback.id || feedback.recipient}>
+                                                            <div >
+
+                                                                    
+                                                                    <p><b>Sender</b>: {feedback.sender}</p>
+                                                              
+                                                                    <p><b>Feedback</b>: {feedback.feedback}</p>
+                                                                    <p><b>Sent Time</b>: {feedback.createdAt}</p>
+                                                                    <Button variant="primary" onClick={() => deleteFeedback(feedback)}><GrTrash/></Button>
+                                                                   
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                }
+                                                
+                                            </div>
+                                            </Container>
+                                    </div>
+                                </div>
+                            </Tab.Pane>
+                        </Tab.Content>
+                    </Col>
+                </Row>
             </Tab.Container>
             <>
-            
-</>
+
+            </>
         </div>
     );
 }

@@ -37,9 +37,11 @@
   }
 }
 .background{
-  background-color:#c7dbee
+  background-color:#ffffff
 }
-.large{
-  text-align: center;
-  font-size:1cm;
+.cen{
+  
+ 
+  margin: auto;
+  
 }

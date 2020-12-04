@@ -16,14 +16,17 @@ function App() {
   return (
     <div>
 
-    <Navbar bg="dark" variant="dark" className="background mr-auto" >
-    <Navbar.Brand>Techcorp</Navbar.Brand>
+    <Navbar bg="dark" variant="dark" className="justify-content-between" >
+    <Navbar.Brand>Techcorp    </Navbar.Brand>
+    <Navbar.Brand>
+      Feedback portal
+    </Navbar.Brand>
     <Button variant="secondary"   onClick={handleClick} >Log Out</Button>
     </Navbar>
       <div className="background">
 
           <header>
-          <h1 className="large">Welcome to feedback portal !</h1>
+          
           </header>
           
           
@@ -35,3 +38,4 @@ function App() {
 }
 
 export default withAuthenticator(App);
+//<h1 className="large">Welcome to feedback portal !</h1>
