@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Auth, API } from 'aws-amplify';
-
+import {Navbar} from  'react-bootstrap';
 import { listFeedbacks } from '../../graphql/queries';
 import { createFeedback as createFeedbackMutation, updateFeedback as updateFeedbackMutation } from '../../graphql/mutations';
 
 function Display(){
 
-    const [user, setUsers] = useState(null);
+   /* const [user, setUsers] = useState(null);
     const [formData, setFormData] = useState({});
     const [name, setNames] = useState([]);
     useEffect(() => {
@@ -32,7 +32,7 @@ function Display(){
         console.log("items are: ", apiData)	
         setUsers(apiData.data.listFeedbacks.items);	
       }
-async function createUser() {
+ async function createUser() {
     console.log("In create user - name()")
     //if (!formData.sender || !formData.name) return;
     await API.graphql({ query: createFeedbackMutation, variables: { input: formData } });
@@ -40,22 +40,23 @@ async function createUser() {
     setFormData({});
     console.log("MMMM")
     fetchUsers();
-  }
+  } */
 
 
     return(
         <div>
-            <h>Kadamm</h>
-              <div>
-                  <input onChange={e => setFormData({ ...formData, 'name': e.target.value})}
-                                placeholder="Name">
-                  </input>
-                  <button onClick={createUser}>OK</button> <div style={{marginBottom: 30}}></div>
-  
-              </div>
+            
+    
         </div>
     );
 
 
 }
 export default Display;
+
+/*
+<input onChange={e => setFormData({ ...formData, 'name': e.target.value})}
+                                placeholder="Name">
+                  </input>
+                  <button onClick={createUser}>OK</button> <div style={{marginBottom: 30}}></div>
+*/

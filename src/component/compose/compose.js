@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 import { API } from 'aws-amplify';
-import { Modal, Container, Row, Card, Alert, Col, Collapse} from 'react-bootstrap';
+import { Modal, Container, Row, Card, Alert, Col, Collapse, Form, Navbar, Nav,Tab } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import './compose.css';
 import { listFeedbacks } from '../../graphql/queries';
 import { createFeedback as createFeedbackMutation, updateFeedback as updateFeedbackMutation, deleteFeedback as deleteFeedbackMutation } from '../../graphql/mutations';
-
+import { withRouter } from "react-router";
 const initialFormState = { recipient: '', feedback: '', sender: '' }
 
 function Compose() {
+    
     const [feedbacks, setFeedbacks] = useState([]);
     const [receivedFeedbacks, setReceivedFeedbacks] = useState([]);
-    const [sentFeedbacks, setSentFeedbacks]= useState([]);
+    const [sentFeedbacks, setSentFeedbacks] = useState([]);
     //const [budget, setBudgets] = useState([]);
     const [formData, setFormData] = useState(initialFormState);
     const [senderEmail, setSenderEmail] = useState('');
@@ -30,7 +31,7 @@ function Compose() {
         const apiData = await API.graphql({ query: listFeedbacks });
         console.log("apidata", apiData)
         // console.log("senderEmail = " + senderEmail);
-        const inboxres = apiData.data.listFeedbacks.items.filter(item => item.recipient == user.attributes.email); 
+        const inboxres = apiData.data.listFeedbacks.items.filter(item => item.recipient == user.attributes.email);
         console.log("inbox res ", inboxres);
         setReceivedFeedbacks(inboxres);
         const sentres = apiData.data.listFeedbacks.items.filter(item => item.sender == user.attributes.email);
@@ -74,99 +75,124 @@ function Compose() {
     }
     return (
         <div>
-            <h>Compose Feedback:</h>
+            
             <>
-                <button type="button" class="btn btn-primary" onClick={handleShow}>
+                <Button variant="primary" onClick={handleShow}>
                     Compose Feedback
-                </button>
-
+                </Button>
                 <Modal show={show} onHide={handleClose} animation={false}>
                     <Modal.Header closeButton>
                         <Modal.Title>Please write a feedback</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <input
+                        <Form>
+                            <Form.Group>
+                            <Form.Label>Write recipient firstname.lastname (eg john.smith )</Form.Label>
+                            <Form.Control size="lg" type="email"
                             onChange={e => setFormData({ ...formData, 'recipient': e.target.value })}
-                            placeholder="Write recipient name"
+                            placeholder="Recipient email"
                             value={formData.recipient}
                         />@techcorp.com
                          <br />
-                        <input
+                         <Form.Control as="textarea" rows={3} 
                             onChange={e => setFormData({ ...formData, 'feedback': e.target.value })}
-                            placeholder="write feedback"
+                            placeholder="Write feedback"
                             value={formData.feedback}
                         />
+                        </Form.Group>
+                        </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button variant="primary" onClick={handleClose}>
                             Close
                          </Button>
-                        <button onClick={createFeedback}>Ok</button>
+                        <Button variant="primary" onClick={createFeedback}>Ok</Button>
                     </Modal.Footer>
                 </Modal>
             </>
+            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                <Row>
+            <Col sm={2}>
+            <Nav variant="pills" className="flex-column ">
+            <Nav.Item>
+          <Nav.Link eventKey="first">Inbox</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="second">Sent BOx</Nav.Link>
+        </Nav.Item>
+        
+            </Nav>
+            </Col>
+            
+            <Col sm={10}>
+            <Tab.Content>
+            <Tab.Pane eventKey="first">
             <h1>INBOX</h1>
             <Container>
-                   <div className="paper">
-                        <div className="col" style={{ marginBottom: 30 }}>                     
+                <div className="paper">
+                    <div className="col" style={{ marginBottom: 30 }}>
+                        {
+                            receivedFeedbacks.map(feedback => (
+                                <div key={feedback.id || feedback.recipient}>
+                                    <p>{feedback.recipient}</p>
+                                    <p>Feedback: {feedback.feedback}</p>
+                                    <p>Sender:{feedback.sender}</p>
+                            <p>Recieved time : {feedback.createdAt}</p>
+                                    <Button variant="primary" onClick={() => deleteFeedback(feedback)}>Delete feedback</Button>
+                                </div>
+                            ))
+                        }
+                        <br />
+                    </div>
+                    <br />
+                </div>
+            </Container>
+            </Tab.Pane>
+            <Tab.Pane eventKey="second">
+            <div>
+               
+                
+                    <div >
+                        <h1>SENT FEEDBACKS</h1>
+                        <Container>
+                        <div className="col paper" style={{ marginBottom: 30 }}>
                             {
-                                receivedFeedbacks.map(feedback=> (                            
+                                sentFeedbacks.map(feedback => (
                                     <div key={feedback.id || feedback.recipient}>
                                         <p>{feedback.recipient}</p>
                                         <p>Feedback: {feedback.feedback}</p>
                                         <p>Sender:{feedback.sender}</p>
-                                        <button onClick={() => deleteFeedback(feedback)}>Delete feedback</button>
-                                    </div> 
-                                ))                             
+                                        <p>Sent Time: {feedback.createdAt}</p>
+                                    </div>
+                                ))
                             }
                             <br />
-                        </div>
-                        <br />
                         </div>
                         </Container>
-                        <div>
-                        <Button
-                        onClick={() => setOpen(!open)}
-                         aria-controls="example-collapse-text"
-                        aria-expanded={open}
-                         >
-                               Sent Feedbacks
-      </Button>
-      <Collapse in={open}>
-        <div id="example-collapse-text">
-          Sent box
-          <div className="col" style={{ marginBottom: 30 }}>                     
-                            {
-                                sentFeedbacks.map(feedback=> (                            
-                                    <div key={feedback.id || feedback.recipient}>
-                                        <p>{feedback.recipient}</p>
-                                        <p>Feedback: {feedback.feedback}</p>
-                                        <p>Sender:{feedback.sender}</p>
-                                        
-                                    </div> 
-                                ))                             
-                            }
-                            <br />
-                        </div>
-        </div>
-      </Collapse>
-                        </div>
-                 
+                    </div>
+                    
+            </div>
+            
+            </Tab.Pane>
+            </Tab.Content>
+            </Col>
+            </Row>
+            </Tab.Container>
+            <>
+            
+</>
         </div>
     );
 }
 export default Compose;
-/*
-   <input
-                onChange={e => setFormData({ ...formData, 'recipient': e.target.value})}
-                placeholder="Write recipient name"
-                value={formData.recipient}
-            />@techcorp.com
-            <input
-                onChange={e => setFormData({ ...formData, 'feedback': e.target.value})}
-                placeholder="write feedback"
-                value={formData.feedback}
 
-            />
-            <button onClick={createFeedback}>Ok</button>
+
+/*
+ <Button variant="secondary"
+                    onClick={() => setOpen(!open)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={open}
+                >
+                    Sent Feedbacks
+                        </Button>
 */
