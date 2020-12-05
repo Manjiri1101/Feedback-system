@@ -24,5 +24,12 @@
         }
       }
     }
+  },
+  "function": {
+    "feedbacksystemf9a23411": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
   }
 }

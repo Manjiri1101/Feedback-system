@@ -15,8 +15,7 @@ const isLocalhost = Boolean(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
 );
-
-let awsconfig = {
+/*let awsconfig = {
     Auth: {
         identityPoolId: "us-east-1:a130f516-f9b7-4d0b-82dd-25e248b49511",
         region: "us-east-1",
@@ -35,7 +34,7 @@ let awsconfig = {
       aws_appsync_graphqlEndpoint:  "https://wznhygavpfbgdgsy7oibu2g2sq.appsync-api.us-east-1.amazonaws.com/graphql",
       aws_appsync_region: "us-east-1",
       aws_appsync_authenticationType:"AMAZON_COGNITO_USER_POOLS"
-}
+}*/
 if (isLocalhost) {
   awsconfig.Auth.oauth.redirectSignIn = 'http://localhost:3000/';
   awsconfig.Auth.oauth.redirectSignOut = 'http://localhost:3000/';
